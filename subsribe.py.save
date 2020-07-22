@@ -1,0 +1,19 @@
+import paho.mqtt.client as mqttclient
+import time
+
+connected=False
+MessageRecieved=False
+
+Broker_address="mqtt.danova.id"
+port=8081
+user=mqtt
+password=mqtt
+
+client=mqttclient.Client("MQTT")
+client.username_pw_set(user,password=password)
+client.on.connect=on_connect
+client.connect(broker_address,port=port)
+client.loop_start()
+client.subscribe("mqtt/secondcode")
+while connected!=True:
+ 

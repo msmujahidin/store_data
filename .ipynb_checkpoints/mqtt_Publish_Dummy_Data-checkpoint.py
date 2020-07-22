@@ -1,3 +1,10 @@
+#------------------------------------------
+#--- Author: Muhammad sya'roni Mujahidin
+#--- Date: 20th Juni
+#--- Version: 1.0
+#--- Python Ver: 3.7
+#------------------------------------------
+
 
 import paho.mqtt.client as mqtt
 import random, threading, json
@@ -5,38 +12,36 @@ from datetime import datetime
 
 #====================================================
 # MQTT Settings 
-mqtt_username = "mqtt"
-mqtt_password = "mqtt"
 MQTT_Broker = "mqtt.danova.id"
 MQTT_Port = 1883
 #Keep_Alive_Interval = 60
-MQTT_Topic_Tegangan = "smartpju/siapa"
-MQTT_Topic_Arus = "smartpju/data3"
+MQTT_Topic_Tegangan = "baru/jos"
+MQTT_Topic_Arus = "smartpju/arus"
 
+#====================================================
 
 def on_connect(client, userdata, rc):
 	if rc != 0:
 		pass
-		print ("Unable to connect to MQTT Broker...")
+		print("Unable to connect to MQTT Broker...")
 	else:
 		print ("Connected with MQTT Broker: " + str(MQTT_Broker))
 
 def on_publish(client, userdata, mid):
 	pass
-		
+
 def on_disconnect(client, userdata, rc):
 	if rc !=0:
 		pass
-		
+
+
 mqttc = mqtt.Client()
-mqttc.username_pw_set(mqtt_username, mqtt_password)
 mqttc.on_connect = on_connect
 mqttc.on_disconnect = on_disconnect
 mqttc.on_publish = on_publish
-mqttc.connect(MQTT_Broker, int(MQTT_Port))	
-	
+mqttc.connect(MQTT_Broker, int(MQTT_Port))
+#mqttc.username_pw_set("mqtt", password="mqtt")
 
-		
 def publish_To_Topic(topic, message):
 	mqttc.publish(topic,message)
 	print ("Published: " + str(message) + " " + "on MQTT Topic: " + str(topic))
