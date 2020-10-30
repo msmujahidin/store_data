@@ -3,7 +3,7 @@ import paho.mqtt.client as mqtt
 # Don't forget to change the variables for the MQTT broker!
 mqtt_username = "mqtt"
 mqtt_password = "mqtt"
-mqtt_topic = "tesjsontx"
+mqtt_topic = "topci/baru"
 mqtt_broker_ip = "mqtt.danova.id"
 
 client = mqtt.Client()

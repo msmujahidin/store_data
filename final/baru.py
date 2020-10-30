@@ -3,7 +3,7 @@ import paho.mqtt.client as mqtt
 # Don't forget to change the variables for the MQTT broker!
 mqtt_username = "mqtt"
 mqtt_password = "mqtt"
-mqtt_topic = "smartpju/led1"
+mqtt_topic = "topic/baru"
 mqtt_broker_ip = "mqtt.danova.id"
 mqtt_port = 1883
 
@@ -25,7 +25,7 @@ def on_message(client, userdata, msg):
     # the content, the code to do this should be run in this function
     data = msg.payload
     baru = data.decode()
-    print("Topic: ", msg.topic + "\nMessage: " + baru) "\nMessage: " + baru)
+    print(baru)
     # The message itself is stored in the msg variable
     # and details about who sent it are stored in userdata
 

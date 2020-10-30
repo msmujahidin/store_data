@@ -1,17 +1,20 @@
 
+
 import paho.mqtt.client as mqtt
 import random, threading, json
 from datetime import datetime
+from time import time
+from random import random
 
 #====================================================
 # MQTT Settings 
-mqtt_username = "mqtt"
-mqtt_password = "mqtt"
-MQTT_Broker = "mqtt.danova.id"
+#mqtt_username = ""
+#mqtt_password = ""
+MQTT_Broker = "test.mosquitto.org"
 MQTT_Port = 1883
-#Keep_Alive_Interval = 60
-MQTT_Topic_Tegangan = "smartpju/siapa"
-MQTT_Topic_Arus = "smartpju/data3"
+#Keep_Alive_Interval = 5
+MQTT_Topic_Tegangan = "topic/baru"
+MQTT_Topic_Arus = "PLN3"
 
 
 def on_connect(client, userdata, rc):
@@ -29,7 +32,7 @@ def on_disconnect(client, userdata, rc):
 		pass
 		
 mqttc = mqtt.Client()
-mqttc.username_pw_set(mqtt_username, mqtt_password)
+#mqttc.username_pw_set(mqtt_username, mqtt_password)
 mqttc.on_connect = on_connect
 mqttc.on_disconnect = on_disconnect
 mqttc.on_publish = on_publish
@@ -54,20 +57,25 @@ def publish_Fake_Sensor_Values_to_MQTT():
 	threading.Timer(3.0, publish_Fake_Sensor_Values_to_MQTT).start()
 	global toggle
 	if toggle == 0:
-		Humidity_Fake_Value = float("{0:.2f}".format(random.uniform(50, 100)))
+		#Kemiringan_fake_value = float("{0:.2f}".format(random.uniform(50, 100)))
+		kemiringan_fake_value = random()
+		#Kemiringan = {}
+		#Kemiringan['Sensor_ID'] = "Dummy-1"
+		#Kemiringan['humadity'] = kemiringan_fake_value
+		#Kemiringan['kemiringan_y'] = Kemiringan_fake_value
+		#Kemiringan['kemiringan_z'] = Kemiringan_fake_value
+		#Kemiringan['waktu_kirim'] = (datetime.today()).strftime("%d-%b-%Y %H:%M:%S:%f")
+		#kemiringan_json_data = json.dumps(Kemiringan)
 
-		Humidity_Data = {}
-		Humidity_Data['Sensor_ID'] = "Dummy-1"
-		Humidity_Data['Date'] = (datetime.today()).strftime("%d-%b-%Y %H:%M:%S:%f")
-		Humidity_Data['Humidity'] = Humidity_Fake_Value
-		humidity_json_data = json.dumps(Humidity_Data)
+		print("Publishing fake kemiringan Value: " +str(kemiringan_fake_value)+ "...")
+			# print(kemiringan_fake_value)
 
-		print ("Publishing fake Humidity Value: " + str(Humidity_Fake_Value) + "...")
-		publish_To_Topic (MQTT_Topic_Tegangan, humidity_json_data)
+		publish_To_Topic (MQTT_Topic_Tegangan, kemiringan_fake_value)
 		toggle = 1
 
 	else:
-		Temperature_Fake_Value = float("{0:.2f}".format(random.uniform(1, 30)))
+		#temperature_Fake_Value = float("{0:.2f}".format(random.uniform(1, 30)))
+		Temperature_Fake_Value = [time() * 1000, random() * 100]
 
 		Temperature_Data = {}
 		Temperature_Data['Sensor_ID'] = "Dummy-2"
